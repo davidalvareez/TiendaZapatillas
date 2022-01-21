@@ -5,14 +5,61 @@ namespace App\Http\Controllers;
 use App\Models\Zapatilla;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ZapatillaController extends Controller
 {
+    //Mostrar zapatilla
     public function mostrarZapatilla(){
         $listaZapatillas = DB::table('tbl_zapatillas')->get();
         return view('mostrarZapatillas', compact('listaZapatillas'));
     }
+    //Crear zapatilla
+    public function crearZapatillaPost(Request $request){
+        $datos = $request->except('_token');
+        if ($request->hasFile('foto_zapatilla')) {
+            $datos['foto_zapatilla'] = $request->file('foto_zapatilla')->store('uploads','public');
+        }else{
+            $datos['foto_zapatilla'] = null;
+        }         
+        try {
+            DB::table('tbl_zapatillas')->insert(["foto_zapatilla"=>$datos['foto_zapatilla'],"marca_zapatilla"=>$datos['marca_zapatilla'],"modelo_zapatilla"=>$datos['modelo_zapatilla'],"color_zapatilla"=>$datos['color_zapatilla'],"talla_zapatilla"=>$datos['talla_zapatilla'],"precio_zapatilla"=>$datos['precio_zapatilla'],"id_proveedor"=>$datos['id_proveedor']]);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+        return redirect('/');
+    }
+    //Eliminar zapatilla
+    public function eliminarZapatilla($id){
+        DB::table('tbl_zapatillas')->where('id','=',$id)->delete();
+        return redirect('/');
+    }   
+    //Modificar zapatilla
+    /*public function modificarPersona($id){
+        $persona=DB::table('tbl_zapatilla')->join('tbl_telef','tbl_zapatilla.id','=','tbl_telef.id_zapatilla')->select()->where('id','=',$id)->first();
+        return view('modificar', compact('persona'));
+    }*/
+    public function modificarZapatillaPut(Request $request){
+        $datos=$request->except('_token','_method');
+        if ($request->hasFile('foto_zapatilla')) {
+            $foto = DB::table('tbl_zapatillas')->select('foto_zapatilla')->where('id','=',$request['id'])->first();          
+            if ($foto->foto_zapatilla != null) {
+                Storage::delete('public/'.$foto->foto_zapatilla); 
+            }
+            $datos['foto_zapatilla'] = $request->file('foto_zapatilla')->store('uploads','public');
+        }else{
+            $foto = DB::table('tbl_zapatilla')->select('foto_zapatilla')->where('id','=',$request['id'])->first();
+            $datos['foto_zapatilla'] = $foto->foto_zapatilla;
+        }
+        try {
+            DB::table('tbl_zapatilla')->where('id','=',$datos['id'])->update($datos);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+        return redirect('/');
+    }
 
+    
 
 
 
