@@ -18,7 +18,7 @@
       <h1>En tu carro:</h1>
     </div>
   </div>
-    <div class="menu">
+    <div class="menu" id="menu">
       @if(!Session::get('tipouser'))
         <i onclick="window.location='{{url("/login")}}'" style="margin-right:10px;" class="fas fa-user fa-2x"></i>
       @else
@@ -28,7 +28,7 @@
             <button class="" type="submit" name="Crear" value="Crear">Crear</button>
           </form>
         @else
-        <i id="myBTN" class="fas fa-shopping-cart fa-2x"></i>
+        <i class="fas fa-shopping-cart fa-2x" id="myBTN"></i>
         @endif
         <i onclick="window.location='{{url("/logout")}}'" class="fas fa-sign-out-alt fa-2x"></i>
       @endif

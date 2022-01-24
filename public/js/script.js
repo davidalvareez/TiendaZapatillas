@@ -4,8 +4,8 @@ $(document).ready(function() {
     var modal = document.getElementById("myModal");
 
     // Get the button that opens the modal
+    //var btn = $("#myBTN");
     var btn = document.getElementById("myBTN");
-    console.log(btn);
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
 
@@ -14,7 +14,6 @@ $(document).ready(function() {
         document.getElementById('cards').style.display = "none"; // hide
         document.getElementById('menu').style.display = "none"; // hide
         modal.style.display = "block";
-        alert('su');
     }
 
     // When the user clicks on <span> (x), close the modal
