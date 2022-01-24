@@ -12,8 +12,20 @@
 </head>
 <body>
     <div class="menu">
-      <button>Iniciar sesion</button>
+      @if(!Session::get('tipouser'))
+        <button onclick="window.location='{{ url("/login")}}'">Iniciar sesion</button>
+      @else
+      <!--SI EL USUARIO ES ADMIN MOSTRAMOS BOTON DE CREAR ZAPATILLA-->
+        @if(Session::get('tipouser') == 'Administrador')
+          <form action="{{url('/crearzapatilla')}}" method="GET">
+            <button class="" type="submit" name="Crear" value="Crear">Crear</button>
+          </form>
+        @endif
+        <button onclick="window.location='{{ url("/logout")}}'">Cerrar sesion</button>
+      @endif
       <button id="myBtn">icono carrito compra</button>
+      <!--{{ session()->get('email') }}
+      {{ session()->get('tipouser') }}-->
     </div>
     <div id="myModal" class="modal">
       <div class="modal-content">
@@ -58,7 +70,17 @@
           </div>
           <div class="card-flap flap2">
             <div class="card-actions">
-              <a href="#" class="btn">Añadir al carro</a>
+              <!--Si es administrador podrá eliminar y modificar, si es cliente solo agregar al carrito y si no hay sesion no mostramos nada-->
+              @if(Session::get('tipouser') == 'Administrador')
+                <form action="{{url('/eliminarZapatilla'.$zapatillas->id_zapatilla)}}" method="GET">
+                  <button class="" type="submit" value="Eliminar">Eliminar</button>
+                </form>
+                <form action="{{url('/modificarZapatilla'.$zapatillas->id_zapatilla)}}" method="GET">
+                  <button class="" type="submit" value="Modificar">Modificar</button>
+                </form>
+              @else
+                <a href="#" class="btn">Añadir al carro</a>
+              @endif
             </div>
           </div>
         </div>
