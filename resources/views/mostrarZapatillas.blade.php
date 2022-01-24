@@ -8,12 +8,19 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="../public/js/script.js"></script>
     <link rel="stylesheet" href="{{asset('../public/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('../public/css/fontawesome/css/all.css')}}">
     <title>Mostrar Zapatillas</title>
 </head>
 <body>
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h1>En tu carro:</h1>
+    </div>
+  </div>
     <div class="menu">
       @if(!Session::get('tipouser'))
-        <button onclick="window.location='{{ url("/login")}}'">Iniciar sesion</button>
+        <i onclick="window.location='{{ url("/login")}}'" style="margin-right:10px;"class="fas fa-user fa-2x"></i>
       @else
       <!--SI EL USUARIO ES ADMIN MOSTRAMOS BOTON DE CREAR ZAPATILLA-->
         @if(Session::get('tipouser') == 'Administrador')
@@ -21,7 +28,7 @@
             <button class="" type="submit" name="Crear" value="Crear">Crear</button>
           </form>
         @endif
-        <button onclick="window.location='{{ url("/logout")}}'">Cerrar sesion</button>
+        <i onclick="window.location='{{ url("/logout")}}'" class="fas fa-sign-out-alt fa-2x"></i>
       @endif
       <button id="myBtn">icono carrito compra</button>
       <!--{{ session()->get('email') }}
@@ -30,9 +37,13 @@
     <div id="myModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
-        <p>Some text in the Modal..</p>
+        <h1>En tu carro:</h1>
       </div>
-    </div>  
+    </div>
+    <div class="menu" id="menu">
+      <i style="margin-right:10px;"class="fas fa-user fa-2x"></i>
+      <i style="margin-right:10px;"id="myBtn" class="fas fa-shopping-cart fa-2x"></i>
+    </div>
     <div class="cards" id="cards">
       @foreach($listaZapatillas as $zapatillas)
         <div class="card" id="card">
@@ -79,7 +90,7 @@
                   <button class="" type="submit" value="Modificar">Modificar</button>
                 </form>
               @else
-                <a href="#" class="btn">Añadir al carro</a>
+                <a href="#" class="btn">Añadir al carro <i class="fas fa-cart-plus"></i></a>
               @endif
             </div>
           </div>
