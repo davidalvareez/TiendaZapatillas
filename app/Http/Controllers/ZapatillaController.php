@@ -44,10 +44,10 @@ class ZapatillaController extends Controller
         return redirect('/');
     }   
     //Modificar zapatilla
-    /*public function modificarPersona($id){
-        $persona=DB::table('tbl_zapatilla')->join('tbl_telef','tbl_zapatilla.id','=','tbl_telef.id_zapatilla')->select()->where('id','=',$id)->first();
-        return view('modificar', compact('persona'));
-    }*/
+    public function modificarZapatilla($id){
+        $zapatilla=DB::table('tbl_zapatilla')->where('id','=',$id)->first();
+        return view('modificarzapatilla', compact('zapatilla'));
+    }
     public function modificarZapatillaPut(Request $request){
         $datos=$request->except('_token','_method');
         if ($request->hasFile('foto_zapatilla')) {

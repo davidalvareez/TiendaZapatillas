@@ -20,29 +20,20 @@
   </div>
     <div class="menu">
       @if(!Session::get('tipouser'))
-        <i onclick="window.location='{{ url("/login")}}'" style="margin-right:10px;"class="fas fa-user fa-2x"></i>
+        <i onclick="window.location='{{url("/login")}}'" style="margin-right:10px;" class="fas fa-user fa-2x"></i>
       @else
       <!--SI EL USUARIO ES ADMIN MOSTRAMOS BOTON DE CREAR ZAPATILLA-->
         @if(Session::get('tipouser') == 'Administrador')
           <form action="{{url('/crearzapatilla')}}" method="GET">
             <button class="" type="submit" name="Crear" value="Crear">Crear</button>
           </form>
+        @else
+        <i id="myBTN" class="fas fa-shopping-cart fa-2x"></i>
         @endif
-        <i onclick="window.location='{{ url("/logout")}}'" class="fas fa-sign-out-alt fa-2x"></i>
+        <i onclick="window.location='{{url("/logout")}}'" class="fas fa-sign-out-alt fa-2x"></i>
       @endif
-      <button id="myBtn">icono carrito compra</button>
       <!--{{ session()->get('email') }}
       {{ session()->get('tipouser') }}-->
-    </div>
-    <div id="myModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h1>En tu carro:</h1>
-      </div>
-    </div>
-    <div class="menu" id="menu">
-      <i style="margin-right:10px;"class="fas fa-user fa-2x"></i>
-      <i style="margin-right:10px;"id="myBtn" class="fas fa-shopping-cart fa-2x"></i>
     </div>
     <div class="cards" id="cards">
       @foreach($listaZapatillas as $zapatillas)
@@ -83,10 +74,10 @@
             <div class="card-actions">
               <!--Si es administrador podrá eliminar y modificar, si es cliente solo agregar al carrito y si no hay sesion no mostramos nada-->
               @if(Session::get('tipouser') == 'Administrador')
-                <form action="{{url('/eliminarZapatilla'.$zapatillas->id_zapatilla)}}" method="GET">
+                <form action="{{url('/eliminarZapatilla/'.$zapatillas->id_zapatilla)}}" method="GET">
                   <button class="" type="submit" value="Eliminar">Eliminar</button>
                 </form>
-                <form action="{{url('/modificarZapatilla'.$zapatillas->id_zapatilla)}}" method="GET">
+                <form action="{{url('/modificarZapatilla/'.$zapatillas->id_zapatilla)}}" method="GET">
                   <button class="" type="submit" value="Modificar">Modificar</button>
                 </form>
               @else

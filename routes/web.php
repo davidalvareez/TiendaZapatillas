@@ -15,7 +15,7 @@ Route::get('/crearzapatilla',[ZapatillaController::class, 'crearZapatillaGet']);
 Route::post('/crearzapatilla',[ZapatillaController::class, 'crearZapatillaPost']);
 
 /*ACTUALIZAR Zapatilla*/
-//Route::get('/modificarZapatilla/{id}', [ZapatillaController::class, 'modificarZapatilla']);
+Route::get('/modificarZapatilla/{id}', [ZapatillaController::class, 'modificarZapatilla']);
 Route::put('/modificarZapatilla',[ZapatillaController::class, 'modificarZapatillaPut']);
 
 /*ELIMINAR ZAPATILLA*/
