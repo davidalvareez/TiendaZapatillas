@@ -15,6 +15,10 @@ class ZapatillaController extends Controller
         return view('mostrarZapatillas', compact('listaZapatillas'));
     }
     //Crear zapatilla
+    public function crearZapatillaGet(){
+        return view('crearzapatilla');
+    }
+
     public function crearZapatillaPost(Request $request){
         $datos = $request->except('_token');
         if ($request->hasFile('foto_zapatilla')) {
@@ -31,6 +35,11 @@ class ZapatillaController extends Controller
     }
     //Eliminar zapatilla
     public function eliminarZapatilla($id){
+        //Eliminar tambien la foto del storage
+        $foto = DB::table('tbl_zapatillas')->select('foto_zapatilla')->where('id','=',$id)->first();          
+        if ($foto->foto_zapatilla != null) {
+            Storage::delete('public/'.$foto->foto_zapatilla); 
+        }
         DB::table('tbl_zapatillas')->where('id','=',$id)->delete();
         return redirect('/');
     }   
@@ -58,7 +67,34 @@ class ZapatillaController extends Controller
         }
         return redirect('/');
     }
-
+    /*LOGIN*/
+    public function login(){
+        return view('login');
+    }
+    public function loginPost(Request $request){
+        $datos_frm = $request->except('_token','_method');
+        $email=$datos_frm['email_user'];
+        $password=md5($datos_frm['pass_user']);
+        //$password=sha1($password);
+        $users = DB::table("tbl_user")->where('email_user','=',$email)->where('pass_user','=',$password)->count();
+        $user = DB::table("tbl_user")->where('email_user','=',$email)->where('pass_user','=',$password)->first();
+        if($users == 1){
+            //Establecer la sesion
+            $request->session()->put('email',$request->email_user);
+            $request->session()->put('tipouser',$user->tipo_user);
+            return redirect('/');
+        }else{
+            //Redirigir al login
+            return redirect('/login');
+        }
+    }
+    public function logout(Request $request){
+        //Olvidar una sesion en especifico
+            //$request->session()->forget('email');
+        //Eliminar todas las variables de sesion
+        $request->session()->flush();
+        return redirect('/');
+    }
     
 
 

@@ -12,6 +12,28 @@
     <title>Mostrar Zapatillas</title>
 </head>
 <body>
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h1>En tu carro:</h1>
+    </div>
+  </div>
+    <div class="menu">
+      @if(!Session::get('tipouser'))
+        <i onclick="window.location='{{ url("/login")}}'" style="margin-right:10px;"class="fas fa-user fa-2x"></i>
+      @else
+      <!--SI EL USUARIO ES ADMIN MOSTRAMOS BOTON DE CREAR ZAPATILLA-->
+        @if(Session::get('tipouser') == 'Administrador')
+          <form action="{{url('/crearzapatilla')}}" method="GET">
+            <button class="" type="submit" name="Crear" value="Crear">Crear</button>
+          </form>
+        @endif
+        <i onclick="window.location='{{ url("/logout")}}'" class="fas fa-sign-out-alt fa-2x"></i>
+      @endif
+      <button id="myBtn">icono carrito compra</button>
+      <!--{{ session()->get('email') }}
+      {{ session()->get('tipouser') }}-->
+    </div>
     <div id="myModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -59,7 +81,17 @@
           </div>
           <div class="card-flap flap2">
             <div class="card-actions">
-              <a href="#" class="btn">Añadir al carro <i class="fas fa-cart-plus"></i></a>
+              <!--Si es administrador podrá eliminar y modificar, si es cliente solo agregar al carrito y si no hay sesion no mostramos nada-->
+              @if(Session::get('tipouser') == 'Administrador')
+                <form action="{{url('/eliminarZapatilla'.$zapatillas->id_zapatilla)}}" method="GET">
+                  <button class="" type="submit" value="Eliminar">Eliminar</button>
+                </form>
+                <form action="{{url('/modificarZapatilla'.$zapatillas->id_zapatilla)}}" method="GET">
+                  <button class="" type="submit" value="Modificar">Modificar</button>
+                </form>
+              @else
+                <a href="#" class="btn">Añadir al carro <i class="fas fa-cart-plus"></i></a>
+              @endif
             </div>
           </div>
         </div>
