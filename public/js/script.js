@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+
+    
+
     /*MODAL BOX*/
     // Get the modal
     var modal = document.getElementById("myModal");
@@ -13,6 +16,7 @@ $(document).ready(function() {
     // When the user clicks the button, open the modal 
     btn.onclick = function() {
         document.getElementById('cards').style.display = "none"; // hide
+        document.getElementById('menu').style.display = "none"; // hide
         modal.style.display = "block";
 
     }
@@ -20,6 +24,7 @@ $(document).ready(function() {
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
         document.getElementById('cards').style.display = "block"; // visible
+        document.getElementById('menu').style.display = "block"; // visible
         modal.style.display = "none";
     }
 
@@ -27,6 +32,7 @@ $(document).ready(function() {
     window.onclick = function(event) {
         if (event.target == modal) {
             document.getElementById('cards').style.display = "block"; // visible
+            document.getElementById('menu').style.display = "block"; // visible
             modal.style.display = "none";
         }
     }

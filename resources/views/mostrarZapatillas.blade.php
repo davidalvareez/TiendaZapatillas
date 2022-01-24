@@ -8,19 +8,20 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="../public/js/script.js"></script>
     <link rel="stylesheet" href="{{asset('../public/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('../public/css/fontawesome/css/all.css')}}">
     <title>Mostrar Zapatillas</title>
 </head>
 <body>
-    <div class="menu">
-      <button>Iniciar sesion</button>
-      <button id="myBtn">icono carrito compra</button>
-    </div>
     <div id="myModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
-        <p>Some text in the Modal..</p>
+        <h1>En tu carro:</h1>
       </div>
-    </div>  
+    </div>
+    <div class="menu" id="menu">
+      <i style="margin-right:10px;"class="fas fa-user fa-2x"></i>
+      <i style="margin-right:10px;"id="myBtn" class="fas fa-shopping-cart fa-2x"></i>
+    </div>
     <div class="cards" id="cards">
       @foreach($listaZapatillas as $zapatillas)
         <div class="card" id="card">
@@ -58,7 +59,7 @@
           </div>
           <div class="card-flap flap2">
             <div class="card-actions">
-              <a href="#" class="btn">Añadir al carro</a>
+              <a href="#" class="btn">Añadir al carro <i class="fas fa-cart-plus"></i></a>
             </div>
           </div>
         </div>

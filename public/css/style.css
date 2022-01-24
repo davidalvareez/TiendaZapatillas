@@ -6,6 +6,7 @@ body {
     text-rendering: optimizeLegibility;
 }
 
+
 .menu {
     width: 100%;
     margin-top: 0;
@@ -36,17 +37,33 @@ body {
     /* Fallback color */
     background-color: rgba(0, 0, 0, 0.4);
     /* Black w/ opacity */
+    
 }
 
 
+.menu{
+    float: right;
+    width: auto;
+    margin-right: 2%;
+}
 /* Modal Content */
 
 .modal-content {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
+    background: #ffffff;
+    border-radius: 0.5em;
+    box-shadow: 0 10px 20px rgba(black, 0.2);
+    left: 50%;
+    max-width: 90%;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 30em;
+    height:30em;
+    text-align: center;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -97,7 +114,7 @@ a.btn:active {
 }
 
 div.cards {
-    margin-top: 100px;
+    padding-top: 50px;
     margin: 80px auto;
     max-width: 2000px;
     text-align: center;
@@ -186,7 +203,7 @@ div.card div.card-description {
 
 div.card div.card-actions {
     box-shadow: 0 2px 0px 0 rgba(0, 0, 0, 0.075);
-    padding: 10px 15px 20px;
+    padding: 50px 15px 20px;
     text-align: center;
 }
 
