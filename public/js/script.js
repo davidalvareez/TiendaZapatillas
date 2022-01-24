@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
 
-    
+
 
     /*MODAL BOX*/
     // Get the modal
