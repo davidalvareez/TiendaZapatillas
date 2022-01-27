@@ -96,6 +96,9 @@ class ZapatillaController extends Controller
         return redirect('/');
     }
     
+    public function factura(){
+       return view('factura');
+    }
 
 
 

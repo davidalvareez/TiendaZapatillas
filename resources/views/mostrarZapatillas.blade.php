@@ -16,6 +16,10 @@
     <div class="modal-content">
       <span class="close">&times;</span>
       <h1>En tu carro:</h1>
+      <div>
+        <!--Poner lo que ha comprado el usuario!-->
+      </div>
+      <button>Finalizar el pedido</button>
     </div>
   </div>
     <div class="menu" id="menu">
@@ -36,10 +40,16 @@
       {{ session()->get('tipouser') }}-->
     </div>
     <div class="cards" id="cards">
+      <form method="post" onsubmit="return false">
+        <input type="hidden" name="_method" value="POST" id="postFiltro">
+        <div class="form-outline">
+            <input type="search" id="search" name="nombre" class="form-control" placeholder="Buscar por nombre..." aria-label="Search" onkeyup="filtro(); return false;"/>
+        </div>
+      </form>
       @foreach($listaZapatillas as $zapatillas)
         <div class="card" id="card">
           <div class="card__image-holder">
-            <img class="card__image" src="https://source.unsplash.com/300x225/?wave" alt="wave"/>
+            <img class="card__image" width="298px" height="223px" src="{{$zapatillas->foto_zapatilla}}"/>
           </div>
           <div class="card-title">
             <a href="#" class="toggle-info btn">
@@ -47,6 +57,7 @@
               <span class="right"></span>
             </a>
             <h2>
+              
               {{$zapatillas->marca_zapatilla}} {{$zapatillas->modelo_zapatilla}}
               <small>{{$zapatillas->color_zapatilla}}</small>
               <small>{{$zapatillas->precio_zapatilla}}€ </small>

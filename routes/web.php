@@ -20,3 +20,6 @@ Route::put('/modificarZapatilla',[ZapatillaController::class, 'modificarZapatill
 
 /*ELIMINAR ZAPATILLA*/
 Route::delete('/eliminarZapatilla/{id}', [ZapatillaController::class, 'eliminarZapatilla']);
+
+/*PROVISIONAL FACTURA */
+Route::get('/factura',[ZapatillaController::class, 'factura']);
