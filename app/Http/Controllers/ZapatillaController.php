@@ -50,6 +50,7 @@ class ZapatillaController extends Controller
     }
     public function modificarZapatillaPut(Request $request){
         $datos=$request->except('_token','_method');
+        return $datos;
         if ($request->hasFile('foto_zapatillas')) {
             $foto = DB::table('tbl_zapatillas')->select('foto_zapatilla')->where('id','=',$request['id'])->first();          
             if ($foto->foto_zapatilla != null) {

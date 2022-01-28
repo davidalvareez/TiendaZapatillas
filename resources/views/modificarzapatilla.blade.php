@@ -7,7 +7,7 @@
     <title>Crear Zapatilla</title>
 </head>
 <body>
-    <form action="{{url('/modificarZapatilla')}}" method="POST" enctype="multipart/form-data">
+    <form action="{{url('/modificarZapatilla')}}" method="PUT" enctype="multipart/form-data">
         @csrf
         <p>Marca</p>
         <input type="text" name="marca_zapatilla" value="{{$zapatilla->marca_zapatilla}}">
@@ -45,7 +45,7 @@
         {{$message}}
         @enderror
         <p>Precio</p>
-        <input type="number" name="precio_zapatilla" value="{{precio_zapatilla}}">
+        <input type="number" name="precio_zapatilla" value="{{$zapatilla->precio_zapatilla}}">
         @error('precio_zapatilla')
         <br>
         {{$message}}
