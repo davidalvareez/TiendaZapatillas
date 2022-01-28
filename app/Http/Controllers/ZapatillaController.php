@@ -36,7 +36,7 @@ class ZapatillaController extends Controller
     //Eliminar zapatilla
     public function eliminarZapatilla($id){
         //Eliminar tambien la foto del storage
-        $foto = DB::table('tbl_zapatillas')->select('foto_zapatilla')->where('id','=',$id)->first();          
+        $foto = DB::table('tbl_zapatillas')->select('foto_zapatilla')->where('id','=',$id)->first();       
         if ($foto->foto_zapatilla != null) {
             Storage::delete('public/'.$foto->foto_zapatilla); 
         }
@@ -45,23 +45,23 @@ class ZapatillaController extends Controller
     }   
     //Modificar zapatilla
     public function modificarZapatilla($id){
-        $zapatilla=DB::table('tbl_zapatilla')->where('id','=',$id)->first();
+        $zapatilla=DB::table('tbl_zapatillas')->where('id','=',$id)->first();
         return view('modificarzapatilla', compact('zapatilla'));
     }
     public function modificarZapatillaPut(Request $request){
         $datos=$request->except('_token','_method');
-        if ($request->hasFile('foto_zapatilla')) {
+        if ($request->hasFile('foto_zapatillas')) {
             $foto = DB::table('tbl_zapatillas')->select('foto_zapatilla')->where('id','=',$request['id'])->first();          
             if ($foto->foto_zapatilla != null) {
                 Storage::delete('public/'.$foto->foto_zapatilla); 
             }
             $datos['foto_zapatilla'] = $request->file('foto_zapatilla')->store('uploads','public');
         }else{
-            $foto = DB::table('tbl_zapatilla')->select('foto_zapatilla')->where('id','=',$request['id'])->first();
+            $foto = DB::table('tbl_zapatillas')->select('foto_zapatilla')->where('id','=',$request['id'])->first();
             $datos['foto_zapatilla'] = $foto->foto_zapatilla;
         }
         try {
-            DB::table('tbl_zapatilla')->where('id','=',$datos['id'])->update($datos);
+            DB::table('tbl_zapatillas')->where('id','=',$datos['id'])->update($datos);
         } catch (\Exception $e) {
             return $e->getMessage();
         }

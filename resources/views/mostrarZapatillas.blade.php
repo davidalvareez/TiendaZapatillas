@@ -85,12 +85,8 @@
             <div class="card-actions">
               <!--Si es administrador podrá eliminar y modificar, si es cliente solo agregar al carrito y si no hay sesion no mostramos nada-->
               @if(Session::get('tipouser') == 'Administrador')
-                <form action="{{url('/eliminarZapatilla/'.$zapatillas->id_zapatilla)}}" method="GET">
-                  <button class="" type="submit" value="Eliminar">Eliminar</button>
-                </form>
-                <form action="{{url('/modificarZapatilla/'.$zapatillas->id_zapatilla)}}" method="GET">
-                  <button class="" type="submit" value="Modificar">Modificar</button>
-                </form>
+                  <button onclick="window.location.href = '{{url('/eliminarZapatilla/'.$zapatillas->id)}}'" class="" type="submit" value="Eliminar">Eliminar</button>
+                  <button onclick="window.location.href = '{{url('/modificarZapatilla/'.$zapatillas->id)}}'" class="" type="submit" value="Modificar">Modificar</button>
               @else
                 <a href="#" class="btn">Añadir al carro <i class="fas fa-cart-plus"></i></a>
               @endif

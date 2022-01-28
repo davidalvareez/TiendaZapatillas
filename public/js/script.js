@@ -20,12 +20,11 @@ $(document).ready(function() {
     }
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
-        document.getElementById('cards').style.display = "block"; // visible
-        document.getElementById('menu').style.display = "block"; // visible
-        modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
+            document.getElementById('cards').style.display = "block"; // visible
+            document.getElementById('menu').style.display = "block"; // visible
+            modal.style.display = "none";
+        }
+        // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
             if (event.target == modal) {
                 document.getElementById('cards').style.display = "block"; // visible
@@ -48,7 +47,6 @@ $(document).ready(function() {
         $(".talla_zapatilla").click(function() {
             return false;
         });
-
         if ($("div.cards").hasClass("showing")) {
             // a card is already in view
             $("div.card.show")
@@ -63,7 +61,6 @@ $(document).ready(function() {
                 $(this)
                     .css({ zIndex: zindex })
                     .addClass("show");
-
             }
 
             zindex++;

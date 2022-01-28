@@ -19,7 +19,7 @@ Route::get('/modificarZapatilla/{id}', [ZapatillaController::class, 'modificarZa
 Route::put('/modificarZapatilla',[ZapatillaController::class, 'modificarZapatillaPut']);
 
 /*ELIMINAR ZAPATILLA*/
-Route::delete('/eliminarZapatilla/{id}', [ZapatillaController::class, 'eliminarZapatilla']);
+Route::get('/eliminarZapatilla/{id}', [ZapatillaController::class, 'eliminarZapatilla']);
 
 /*PROVISIONAL FACTURA */
 Route::get('/factura',[ZapatillaController::class, 'factura']);
