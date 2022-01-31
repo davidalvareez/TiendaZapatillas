@@ -7,26 +7,18 @@
     <title>Crear Zapatilla</title>
 </head>
 <body>
-    <form action="{{url('/modificarZapatilla')}}" method="PUT" enctype="multipart/form-data">
+    <form action="{{url('modificarZapatilla')}}" method="POST" enctype="multipart/form-data">
         @csrf
+        {{method_field('PUT')}}
         <p>Marca</p>
         <input type="text" name="marca_zapatilla" value="{{$zapatilla->marca_zapatilla}}">
-        @error('marca_zapatilla')
         <br>
-        {{$message}}
-        @enderror
         <p>Modelo</p>
         <input type="text" name="modelo_zapatilla" value="{{$zapatilla->modelo_zapatilla}}">
-        @error('modelo_zapatilla')
         <br>
-        {{$message}}
-        @enderror
         <p>Color</p>
         <input type="text" name="color_zapatilla" value="{{$zapatilla->color_zapatilla}}">
-        @error('color_zapatilla')
         <br>
-        {{$message}}
-        @enderror
         <p>Talla</p>
         <select name="talla_zapatilla">
             <option value="35" selected>35</option>
@@ -40,32 +32,19 @@
             <option value="44">44</option>
             <option value="45">45</option>
           </select>
-        @error('talla_zapatilla')
         <br>
-        {{$message}}
-        @enderror
         <p>Precio</p>
         <input type="number" name="precio_zapatilla" value="{{$zapatilla->precio_zapatilla}}">
-        @error('precio_zapatilla')
         <br>
-        {{$message}}
-        @enderror
         <p>Foto</p>
-        <input type="file" name="foto_zapatilla">
-        @error('foto_zapatilla')
-        <br>
-        {{$message}}
-        @enderror
+        <input type="file" name="foto_zapatilla"><br>
         <p>Proveedor</p>
         <select name="id_proveedor">
             <option value="1" selected>Nike</option>
             <option value="2" selected>Adidas</option>
             <option value="3" selected>Reebok</option>
-        </select>
-        @error('id_proveedor')
-        <br>
-        {{$message}}
-        @enderror
+        </select><br>
+        <input type="hidden" name="id" value="{{$zapatilla->id}}">
         <input type="submit" value="Enviar">
     </form>
 </body>

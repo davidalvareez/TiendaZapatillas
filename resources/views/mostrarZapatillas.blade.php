@@ -49,7 +49,7 @@
       @foreach($listaZapatillas as $zapatillas)
         <div class="card" id="card">
           <div class="card__image-holder">
-            <img class="card__image" width="298px" height="223px" src="{{$zapatillas->foto_zapatilla}}"/>
+            <img class="card__image" width="298px" height="223px" src="{{asset('storage').'/'.$zapatillas->foto_zapatilla}}"/>
           </div>
           <div class="card-title">
             <a href="#" class="toggle-info btn">

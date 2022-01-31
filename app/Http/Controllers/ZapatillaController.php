@@ -50,8 +50,7 @@ class ZapatillaController extends Controller
     }
     public function modificarZapatillaPut(Request $request){
         $datos=$request->except('_token','_method');
-        return $datos;
-        if ($request->hasFile('foto_zapatillas')) {
+        if ($request->hasFile('foto_zapatilla')) {
             $foto = DB::table('tbl_zapatillas')->select('foto_zapatilla')->where('id','=',$request['id'])->first();          
             if ($foto->foto_zapatilla != null) {
                 Storage::delete('public/'.$foto->foto_zapatilla); 
