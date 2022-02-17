@@ -18,8 +18,18 @@
       <h1>En tu carro:</h1>
       <div>
         <!--Poner lo que ha comprado el usuario!-->
+        @if(Session::get('carroCompra'))
+          <?php $carro = Session::get('carroCompra');?>
+        @foreach($carro as $cart)
+        <table>
+          <tr>
+            <td>{{$cart}}</td>
+          </tr>
+        </table>
+        @endforeach
+        <button>Finalizar el pedido</button>
+        @endif
       </div>
-      <button>Finalizar el pedido</button>
     </div>
   </div>
     <div class="menu" id="menu">
@@ -87,8 +97,10 @@
               @if(Session::get('tipouser') == 'Administrador')
                   <button onclick="window.location.href = '{{url('/eliminarZapatilla/'.$zapatillas->id)}}'" class="" type="submit" value="Eliminar">Eliminar</button>
                   <button onclick="window.location.href = '{{url('/modificarZapatilla/'.$zapatillas->id)}}'" class="" type="submit" value="Modificar">Modificar</button>
+              @elseif (Session::get('tipouser') == 'Cliente')
+                <a href="#" class="btn" onclick="window.location.href = '{{url('/addCart/'.$zapatillas->id)}}'">Añadir al carro <i class="fas fa-cart-plus"></i></a>
               @else
-                <a href="#" class="btn">Añadir al carro <i class="fas fa-cart-plus"></i></a>
+                <a href="#" class="btn" onclick="window.location.href = '{{url('/login')}}'">Añadir al carro <i class="fas fa-cart-plus"></i></a>
               @endif
             </div>
           </div>
