@@ -21,5 +21,9 @@ Route::put('/modificarZapatilla',[ZapatillaController::class, 'modificarZapatill
 /*ELIMINAR ZAPATILLA*/
 Route::get('/eliminarZapatilla/{id}', [ZapatillaController::class, 'eliminarZapatilla']);
 
+
+/*Agregar elemento al carrito*/
+Route::get('addCart/{id}',[ZapatillaController::class, 'addShoppingCart']);
+
 /*PROVISIONAL FACTURA */
 Route::get('/factura',[ZapatillaController::class, 'factura']);

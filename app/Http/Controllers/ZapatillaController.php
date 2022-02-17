@@ -6,6 +6,8 @@ use App\Models\Zapatilla;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Session;
 
 class ZapatillaController extends Controller
 {
@@ -88,6 +90,7 @@ class ZapatillaController extends Controller
             return redirect('/login');
         }
     }
+    //Logout
     public function logout(Request $request){
         //Olvidar una sesion en especifico
             //$request->session()->forget('email');
@@ -95,7 +98,19 @@ class ZapatillaController extends Controller
         $request->session()->flush();
         return redirect('/');
     }
-    
+
+    //Agregar elemento al carrito
+    public function addShoppingCart($id){
+        if (session()->has('carroCompra')) {
+            return "Ya hay otro valor";
+        }else{
+            $element = DB::select("SELECT * FROM tbl_zapatillas where id=$id");
+            $cart = ['modelo_zapatilla' => $element[0]->modelo_zapatilla, 'precio_zapatilla' => $element[0]->precio_zapatilla];
+            session()->put('carroCompra',$cart);
+            return redirect('/');
+        }
+    }
+    //Vista factura antes de efectuar el pago
     public function factura(){
        return view('factura');
     }
