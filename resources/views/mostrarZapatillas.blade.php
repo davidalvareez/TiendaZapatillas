@@ -20,13 +20,15 @@
         <!--Poner lo que ha comprado el usuario!-->
         @if(Session::get('carroCompra'))
           <?php $carro = Session::get('carroCompra');?>
+          <table>
         @foreach($carro as $cart)
-        <table>
           <tr>
-            <td>{{$cart}}</td>
+            <td><img class="" width="298px" height="223px" src="{{asset('storage').'/'.$cart['foto_zapatilla']}}"/></td>
+            <td>{{$cart['modelo_zapatilla']}}</td>
+            <td>{{$cart['precio_zapatilla']}}</td>
           </tr>
-        </table>
         @endforeach
+      </table>
         <button>Finalizar el pedido</button>
         @endif
       </div>
