@@ -102,10 +102,16 @@ class ZapatillaController extends Controller
     //Agregar elemento al carrito
     public function addShoppingCart($id){
         if (session()->has('carroCompra')) {
-            return "Ya hay otro valor";
+            $element = DB::select("SELECT * FROM tbl_zapatillas where id=$id");
+            $cart = session()->get('carroCompra');
+            $posicion = sizeof($cart);
+            $cart[$posicion]=['modelo_zapatilla' => $element[0]->modelo_zapatilla, 'precio_zapatilla' => $element[0]->precio_zapatilla,'foto_zapatilla' => $element[0]->foto_zapatilla];
+            session()->forget('carroCompra');
+            session()->put('carroCompra',$cart);
+            return redirect('/');
         }else{
             $element = DB::select("SELECT * FROM tbl_zapatillas where id=$id");
-            $cart = ['modelo_zapatilla' => $element[0]->modelo_zapatilla, 'precio_zapatilla' => $element[0]->precio_zapatilla];
+            $cart = [['modelo_zapatilla' => $element[0]->modelo_zapatilla, 'precio_zapatilla' => $element[0]->precio_zapatilla,'foto_zapatilla' => $element[0]->foto_zapatilla]];
             session()->put('carroCompra',$cart);
             return redirect('/');
         }
