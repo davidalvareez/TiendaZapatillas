@@ -29,7 +29,7 @@
           </tr>
         @endforeach
       </table>
-        <button>Finalizar el pedido</button>
+        <button onclick="alert('xd')">Finalizar el pedido</button>
         @endif
       </div>
     </div>

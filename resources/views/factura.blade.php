@@ -11,16 +11,39 @@
 <body>
     <h1>Mi cesta de compra</h1>
     <div>
-        <button>SEGUIR COMPRANDO</button>
-        <form action="{{url('/pagar')}}" method="GET">
-            <input type="hidden" name="correo" value="<?php echo Session::get('email')?>">
-            <button class="" type="submit" name="pagar" value="Pagar">Pagar</button>
-          </form>
+        <form action="{{url('/')}}" method="GET">
+            <button>SEGUIR COMPRANDO</button>
+        </form>
     </div>
     <br><br>
     <table>
-        <th>Informacion de tu pedido</th>
-        <th>Precio</th>
+        <?php $carro = Session::get('carroCompra');?>
+        <tr>
+            <th></th>
+            <th>Informacion de tu pedido</th>
+            <th>Precio</th>
+        </tr>
+        @if(Session::get('carroCompra'))
+            @foreach ($carro as $cart)
+            <tr>
+                <td><img class="" width="298px" height="223px" src="{{asset('storage').'/'.$cart['foto_zapatilla']}}"/></td>
+                <td>{{$cart['modelo_zapatilla']}}</td>
+                <td>{{$cart['precio_zapatilla']}}</td>
+              </tr>
+              <?php 
+              $total=0;
+              $total=$total+$cart['precio_zapatilla'] ?>
+            @endforeach
+        @endif
+        
+        <form action="{{url('pagar/'.$total)}}" method="GET">
+            @if(Session::get('carroCompra'))
+                @foreach ($carro as $cart)
+                    <input type="hidden" name="correo" value="<?php echo Session::get('email')?>">
+                    <button class="" type="submit" name="pagar" value="Pagar">Pagar</button>
+                @endforeach
+            @endif
+        </form>
     </table>
 </body>
 </html>

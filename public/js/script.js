@@ -13,6 +13,10 @@ $(document).ready(function() {
         btn.addEventListener("click", openModal);
     }
 
+    function ex() {
+        alert("xd")
+    }
+
     function openModal() {
         document.getElementById('cards').style.display = "none"; // hide
         document.getElementById('menu').style.display = "none"; // hide
@@ -25,13 +29,13 @@ $(document).ready(function() {
             modal.style.display = "none";
         }
         // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-            if (event.target == modal) {
-                document.getElementById('cards').style.display = "block"; // visible
-                document.getElementById('menu').style.display = "block"; // visible
-                modal.style.display = "none";
-            }
-        }
+        /*window.onclick = function(event) {
+                if (event.target == modal) {
+                    document.getElementById('cards').style.display = "block"; // visible
+                    document.getElementById('menu').style.display = "block"; // visible
+                    modal.style.display = "none";
+                }
+            }*/
         /*Cartas*/
     var zindex = 10;
 
