@@ -29,4 +29,6 @@ Route::get('addCart/{id}',[ZapatillaController::class, 'addShoppingCart']);
 Route::get('/factura',[ZapatillaController::class, 'factura']);
 
 /*Pago + email*/
- Route::get('/pagar',[ZapatillaController::class, 'pagar']);
+ Route::get('pagar/{total}',[ZapatillaController::class, 'pagar']);
+
+ Route::get("comprado",[ZapatillaController::class,'compra']);
