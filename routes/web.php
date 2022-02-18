@@ -27,3 +27,6 @@ Route::get('addCart/{id}',[ZapatillaController::class, 'addShoppingCart']);
 
 /*PROVISIONAL FACTURA */
 Route::get('/factura',[ZapatillaController::class, 'factura']);
+
+/*Pago + email*/
+ Route::get('/pagar',[ZapatillaController::class, 'pagar']);

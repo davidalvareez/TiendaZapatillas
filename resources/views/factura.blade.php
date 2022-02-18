@@ -12,14 +12,15 @@
     <h1>Mi cesta de compra</h1>
     <div>
         <button>SEGUIR COMPRANDO</button>
-        <button>TRAMITAR PEDIDO POR PAYPAL <i class="fab fa-paypal"></i></button>
+        <form action="{{url('/pagar')}}" method="GET">
+            <input type="hidden" name="correo" value="<?php echo Session::get('email')?>">
+            <button class="" type="submit" name="pagar" value="Pagar">Pagar</button>
+          </form>
     </div>
     <br><br>
     <table>
         <th>Informacion de tu pedido</th>
-        <th>Cantidad</th>
-        <th>Total</th>
-
+        <th>Precio</th>
     </table>
 </body>
 </html>

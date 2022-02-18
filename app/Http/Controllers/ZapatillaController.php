@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\MAIL;
+use App\Mail\EnviarMensaje;
 
 class ZapatillaController extends Controller
 {
@@ -114,6 +116,14 @@ class ZapatillaController extends Controller
     public function factura(){
        return view('factura');
     }
+    public function pagar(Request $request){
+        $sub = "Compra enjfnajdfasfas";
+        $msj = "";
+        $datos = array('message'=>$msj);
+        $enviar = new EnviarMensaje($datos);
+        $enviar->sub = $sub;
+        Mail::to($request->input('correo'))->send($enviar);
+     }
 
 
 
