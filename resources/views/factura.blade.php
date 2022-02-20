@@ -11,9 +11,7 @@
 <body>
     <h1>Mi cesta de compra</h1>
     <div>
-        <form action="{{url('/')}}" method="GET">
-            <button>SEGUIR COMPRANDO</button>
-        </form>
+            <button onclick="window.location.href='{{url('/')}}'">SEGUIR COMPRANDO</button>
     </div>
     <br><br>
     <table>
