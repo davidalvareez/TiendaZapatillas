@@ -13,10 +13,6 @@ $(document).ready(function() {
         btn.addEventListener("click", openModal);
     }
 
-    function ex() {
-        alert("xd")
-    }
-
     function openModal() {
         document.getElementById('cards').style.display = "none"; // hide
         document.getElementById('menu').style.display = "none"; // hide
