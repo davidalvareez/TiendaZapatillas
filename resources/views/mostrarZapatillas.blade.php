@@ -24,16 +24,16 @@
           <table>
         @foreach($carro as $cart)
           <tr>
-            <td><img class="" width="298px" height="223px" src="{{asset('storage').'/'.$cart['foto_zapatilla']}}"/></td>
-            <td>{{$cart['modelo_zapatilla']}}</td>
-            <td>{{$cart['precio_zapatilla']}}</td>
+            <td class="tdcarro"><img class="imagencarro" width="298px" height="223px" src="{{asset('storage').'/'.$cart['foto_zapatilla']}}"/></td>
+            <td class="tdcarro">{{$cart['modelo_zapatilla']}}</td>
+            <td class="tdcarro">{{$cart['precio_zapatilla']}}€</td>
           </tr>
           <?php 
             $cantidadCarrito++;
           ?>
         @endforeach
       </table>
-        <button onclick="window.location.href='{{url('/factura')}}'">Finalizar el pedido</button>
+        <button class="botoncarrito" onclick="window.location.href='{{url('/factura')}}'">Finalizar el pedido</button>
         @endif
       </div>
     </div>

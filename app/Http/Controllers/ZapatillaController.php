@@ -106,8 +106,9 @@ class ZapatillaController extends Controller
         if (session()->has('carroCompra')) {
             $element = DB::select("SELECT * FROM tbl_zapatillas where id=$id");
             $cart = session()->get('carroCompra');
-            $posicion = sizeof($cart);
+            $posicion = count($cart);
             $cart[$posicion]=['modelo_zapatilla' => $element[0]->modelo_zapatilla, 'precio_zapatilla' => $element[0]->precio_zapatilla,'foto_zapatilla' => $element[0]->foto_zapatilla];
+            //eliminamos la sesion anterior
             session()->forget('carroCompra');
             session()->put('carroCompra',$cart);
             return redirect('/');
@@ -123,13 +124,13 @@ class ZapatillaController extends Controller
        return view('factura');
     }
     public function pagar(Request $request,$total){
-        $sub = "Compra enjfnajdfasfas";
+        $sub = "Tu compra se ha realizado";
         $msj = "";
         $datos = array('message'=>$msj);
         $enviar = new EnviarMensaje($datos);
         $enviar->sub = $sub;
         Mail::to($request->input('correo'))->send($enviar);
-        session()->forget('carroCompra');
+        
         //return redirect('/');
         # return $precio;
         //Aqui generamos la clase ApiContext que es la que hace la conexión
@@ -162,6 +163,7 @@ class ZapatillaController extends Controller
                 try {
                     $payment->create($apiContext);
                     //me redirige a la pagina de compra
+                    session()->forget('carroCompra');
                     return redirect()->away( $payment->getApprovalLink());    
                 }
                 catch (\PayPal\Exception\PayPalConnectionException $ex) {
