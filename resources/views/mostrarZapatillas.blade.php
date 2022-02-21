@@ -29,7 +29,7 @@
           </tr>
         @endforeach
       </table>
-        <button onclick="alert('xd')">Finalizar el pedido</button>
+        <button onclick="ex();">Finalizar el pedido</button>
         @endif
       </div>
     </div>
@@ -54,9 +54,9 @@
     <div class="cards" id="cards">
       <form method="post" onsubmit="return false">
         <input type="hidden" name="_method" value="POST" id="postFiltro">
-        <div class="form-outline">
+        <!--<div class="form-outline">
             <input type="search" id="search" name="nombre" class="form-control" placeholder="Buscar por nombre..." aria-label="Search" onkeyup="filtro(); return false;"/>
-        </div>
+        </div>!-->
       </form>
       @foreach($listaZapatillas as $zapatillas)
         <div class="card" id="card">
