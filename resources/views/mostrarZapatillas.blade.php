@@ -1,3 +1,4 @@
+<?php $cantidadCarrito = 0; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +15,7 @@
 <body>
   <div id="myModal" class="modal">
     <div class="modal-content">
-      <span class="close">&times;</span>
+      <span class="close" id="closeModal">&times;</span>
       <h1>En tu carro:</h1>
       <div>
         <!--Poner lo que ha comprado el usuario!-->
@@ -27,9 +28,12 @@
             <td>{{$cart['modelo_zapatilla']}}</td>
             <td>{{$cart['precio_zapatilla']}}</td>
           </tr>
+          <?php 
+            $cantidadCarrito++;
+          ?>
         @endforeach
       </table>
-        <button onclick="ex();">Finalizar el pedido</button>
+        <button onclick="window.location.href='{{url('/factura')}}'">Finalizar el pedido</button>
         @endif
       </div>
     </div>
@@ -44,7 +48,11 @@
             <button class="" type="submit" name="Crear" value="Crear">Crear</button>
           </form>
         @else
-        <i class="fas fa-shopping-cart fa-2x" id="myBTN"></i>
+          @if ($cantidadCarrito != 0)
+          <i class="fas fa-shopping-cart fa-2x" id="myBTN"><?php echo $cantidadCarrito ?></i>
+          @else
+          <i class="fas fa-shopping-cart fa-2x" id="myBTN"></i>
+          @endif
         @endif
         <i onclick="window.location='{{url("/logout")}}'" class="fas fa-sign-out-alt fa-2x"></i>
       @endif
