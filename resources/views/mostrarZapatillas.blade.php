@@ -24,16 +24,16 @@
           <table>
         @foreach($carro as $cart)
           <tr>
-            <td><img class="" width="298px" height="223px" src="{{asset('storage').'/'.$cart['foto_zapatilla']}}"/></td>
-            <td>{{$cart['modelo_zapatilla']}}</td>
-            <td>{{$cart['precio_zapatilla']}}</td>
+            <td class="tdcarro"><img class="imagencarro" width="298px" height="223px" src="{{asset('storage').'/'.$cart['foto_zapatilla']}}"/></td>
+            <td class="tdcarro">{{$cart['modelo_zapatilla']}}</td>
+            <td class="tdcarro">{{$cart['precio_zapatilla']}}€</td>
           </tr>
           <?php 
             $cantidadCarrito++;
           ?>
         @endforeach
       </table>
-        <button onclick="window.location.href='{{url('/factura')}}'">Finalizar el pedido</button>
+        <button class="botoncarrito" onclick="window.location.href='{{url('/factura')}}'">Finalizar el pedido</button>
         @endif
       </div>
     </div>
@@ -62,9 +62,9 @@
     <div class="cards" id="cards">
       <form method="post" onsubmit="return false">
         <input type="hidden" name="_method" value="POST" id="postFiltro">
-        <div class="form-outline">
+        <!--<div class="form-outline">
             <input type="search" id="search" name="nombre" class="form-control" placeholder="Buscar por nombre..." aria-label="Search" onkeyup="filtro(); return false;"/>
-        </div>
+        </div>!-->
       </form>
       @foreach($listaZapatillas as $zapatillas)
         <div class="card" id="card">

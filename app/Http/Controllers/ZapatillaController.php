@@ -10,13 +10,18 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\MAIL;
 use App\Mail\EnviarMensaje;
+use Telegram\Bot\Laravel\Facades\Telegram;
+use Barryvdh\DomPDF\PDF;
+use Illuminate\Support\Facades\App;
 
 class ZapatillaController extends Controller
 {
+
     //Mostrar zapatilla
     public function mostrarZapatilla(){
         $listaZapatillas = DB::table('tbl_zapatillas')->get();
         return view('mostrarZapatillas', compact('listaZapatillas'));
+        //return view('mostrarZapatillas', ['listaZapatillas'=>$listaZapatillas]);
     }
     //Crear zapatilla
     public function crearZapatillaGet(){
@@ -77,6 +82,10 @@ class ZapatillaController extends Controller
     }
     public function loginPost(Request $request){
         $datos_frm = $request->except('_token','_method');
+        $request->validate([
+            'email_user'=>'email|required',
+            'pass_user'=>'required|string|max:30',
+        ]);
         $email=$datos_frm['email_user'];
         $password=md5($datos_frm['pass_user']);
         //$password=sha1($password);
@@ -106,8 +115,9 @@ class ZapatillaController extends Controller
         if (session()->has('carroCompra')) {
             $element = DB::select("SELECT * FROM tbl_zapatillas where id=$id");
             $cart = session()->get('carroCompra');
-            $posicion = sizeof($cart);
+            $posicion = count($cart);
             $cart[$posicion]=['modelo_zapatilla' => $element[0]->modelo_zapatilla, 'precio_zapatilla' => $element[0]->precio_zapatilla,'foto_zapatilla' => $element[0]->foto_zapatilla];
+            //eliminamos la sesion anterior
             session()->forget('carroCompra');
             session()->put('carroCompra',$cart);
             return redirect('/');
@@ -123,13 +133,32 @@ class ZapatillaController extends Controller
        return view('factura');
     }
     public function pagar(Request $request,$total){
-        $sub = "Compra enjfnajdfasfas";
-        $msj = "";
+
+        $datos=session()->get('carroCompra');
+        
+        $text = "<b>Pedido completado</b>";
+        Telegram::sendMessage([
+            'chat_id' => env('TELEGRAM_CHANNEL_ID','-1001632035470'),
+            'parse_mode' => 'HTML',
+            'text' => $text
+        ]);
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView('pdfproductos', $datos);
+        //return $pdf->download('pdfproductos');
+        //return $pdf->stream('compra.pdf');
+        $sub = "Tu compra se ha realizado";
+        $msj = "Compra realizada correctamente";
         $datos = array('message'=>$msj);
-        $enviar = new EnviarMensaje($datos);
-        $enviar->sub = $sub;
-        Mail::to($request->input('correo'))->send($enviar);
-        session()->forget('carroCompra');
+        //$enviar = new EnviarMensaje($datos);
+        //$enviar->sub = $sub;
+        $enviar["email"]=session()->get("email");
+        $enviar["title"]="Tu compra se ha realizado";
+        //Mail::to($request->input('correo'))->send($enviar)->attachData($pdf->output(), 'compra.pdf');
+        Mail::send('factura', $enviar, function ($message) use ($enviar, $pdf) {
+            $message->to($enviar["email"], $enviar["email"])
+                ->subject($enviar["title"])
+                ->attachData($pdf->output(), "test.pdf");
+        });
         //return redirect('/');
         # return $precio;
         //Aqui generamos la clase ApiContext que es la que hace la conexión
@@ -162,6 +191,7 @@ class ZapatillaController extends Controller
                 try {
                     $payment->create($apiContext);
                     //me redirige a la pagina de compra
+                    session()->forget('carroCompra');
                     return redirect()->away( $payment->getApprovalLink());    
                 }
                 catch (\PayPal\Exception\PayPalConnectionException $ex) {

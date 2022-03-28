@@ -8,38 +8,36 @@
     <link rel="stylesheet" href="{{asset('../public/css/fontawesome/css/all.css')}}">
     <title>Factura</title>
 </head>
-<body>
+<body class="bodyfactura">
     <h1>Mi cesta de compra</h1>
     <div>
-            <button onclick="window.location.href='{{url('/')}}'">SEGUIR COMPRANDO</button>
+        <button class="botoncarrito" onclick="window.location.href='{{url('/')}}'">SEGUIR COMPRANDO</button>
     </div>
     <br><br>
     <table>
         <?php $carro = Session::get('carroCompra');?>
         <tr>
-            <th></th>
-            <th>Informacion de tu pedido</th>
-            <th>Precio</th>
+            <th>Imagen del producto</th>
+            <th>Nombre del producto</th>
+            <th>Coste unidad</th>
         </tr>
         @if(Session::get('carroCompra'))
+        <?php 
+        $total=0;?>
             @foreach ($carro as $cart)
             <tr>
-                <td><img class="" width="298px" height="223px" src="{{asset('storage').'/'.$cart['foto_zapatilla']}}"/></td>
-                <td>{{$cart['modelo_zapatilla']}}</td>
-                <td>{{$cart['precio_zapatilla']}}</td>
+                <td class="tdcarrito"><img class="" width="298px" height="223px" src="{{asset('storage').'/'.$cart['foto_zapatilla']}}"/></td>
+                <td class="tdcarrito">{{$cart['modelo_zapatilla']}}</td>
+                <td class="tdcarrito">{{$cart['precio_zapatilla']}}</td>
               </tr>
-              <?php 
-              $total=0;
-              $total=$total+$cart['precio_zapatilla'] ?>
+              <?php $total=$total+$cart['precio_zapatilla'] ?>
             @endforeach
         @endif
         
         <form action="{{url('pagar/'.$total)}}" method="GET">
             @if(Session::get('carroCompra'))
-                @foreach ($carro as $cart)
-                    <input type="hidden" name="correo" value="<?php echo Session::get('email')?>">
-                    <button class="" type="submit" name="pagar" value="Pagar">Pagar</button>
-                @endforeach
+                <input type="hidden" name="correo" value="<?php echo Session::get('email')?>">
+                <button class="botoncarrito" type="submit" name="pagar" value="Pagar">Total a pagar: <?php echo $total?>€</button>
             @endif
         </form>
     </table>
