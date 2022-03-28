@@ -32,3 +32,6 @@ Route::get('/factura',[ZapatillaController::class, 'factura']);
  Route::get('pagar/{total}',[ZapatillaController::class, 'pagar']);
 
  Route::get("comprado",[ZapatillaController::class,'compra']);
+
+/*telegram*/
+Route::get('/activity', [ZapatillaController::class,'updatedActivity']);

@@ -10,13 +10,18 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\MAIL;
 use App\Mail\EnviarMensaje;
+use Telegram\Bot\Laravel\Facades\Telegram;
+use Barryvdh\DomPDF\PDF;
+use Illuminate\Support\Facades\App;
 
 class ZapatillaController extends Controller
 {
+
     //Mostrar zapatilla
     public function mostrarZapatilla(){
         $listaZapatillas = DB::table('tbl_zapatillas')->get();
         return view('mostrarZapatillas', compact('listaZapatillas'));
+        //return view('mostrarZapatillas', ['listaZapatillas'=>$listaZapatillas]);
     }
     //Crear zapatilla
     public function crearZapatillaGet(){
@@ -77,6 +82,10 @@ class ZapatillaController extends Controller
     }
     public function loginPost(Request $request){
         $datos_frm = $request->except('_token','_method');
+        $request->validate([
+            'email_user'=>'email|required',
+            'pass_user'=>'required|string|max:30',
+        ]);
         $email=$datos_frm['email_user'];
         $password=md5($datos_frm['pass_user']);
         //$password=sha1($password);
@@ -124,13 +133,32 @@ class ZapatillaController extends Controller
        return view('factura');
     }
     public function pagar(Request $request,$total){
-        $sub = "Tu compra se ha realizado";
-        $msj = "";
-        $datos = array('message'=>$msj);
-        $enviar = new EnviarMensaje($datos);
-        $enviar->sub = $sub;
-        Mail::to($request->input('correo'))->send($enviar);
+
+        $datos=session()->get('carroCompra');
         
+        $text = "<b>Pedido completado</b>";
+        Telegram::sendMessage([
+            'chat_id' => env('TELEGRAM_CHANNEL_ID','-1001632035470'),
+            'parse_mode' => 'HTML',
+            'text' => $text
+        ]);
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView('pdfproductos', $datos);
+        //return $pdf->download('pdfproductos');
+        //return $pdf->stream('compra.pdf');
+        $sub = "Tu compra se ha realizado";
+        $msj = "Compra realizada correctamente";
+        $datos = array('message'=>$msj);
+        //$enviar = new EnviarMensaje($datos);
+        //$enviar->sub = $sub;
+        $enviar["email"]=session()->get("email");
+        $enviar["title"]="Tu compra se ha realizado";
+        //Mail::to($request->input('correo'))->send($enviar)->attachData($pdf->output(), 'compra.pdf');
+        Mail::send('factura', $enviar, function ($message) use ($enviar, $pdf) {
+            $message->to($enviar["email"], $enviar["email"])
+                ->subject($enviar["title"])
+                ->attachData($pdf->output(), "test.pdf");
+        });
         //return redirect('/');
         # return $precio;
         //Aqui generamos la clase ApiContext que es la que hace la conexión

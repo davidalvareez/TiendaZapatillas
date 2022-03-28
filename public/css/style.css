@@ -5,13 +5,19 @@ body {
     font-family: 'Source Sans Pro', sans-serif;
     text-rendering: optimizeLegibility;
 }
-
+.login {
+    overflow: hidden;
+    background-size: cover;
+}
 .menu {
     width: 100%;
     margin-top: 0;
     float: right;
 }
 
+img{
+    object-fit: cover;
+}
 
 /* The Modal (background) */
 
@@ -299,4 +305,135 @@ div.card.show div.flap2 {
 }
 .bodyfactura{
     margin-left: 30px;
+}
+.cuadro_login {
+    width: 50%;
+    padding-bottom:1%;
+    background: white;
+    border: 5px solid black;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
+.input_login {
+    width: 60%;
+    height: 45px;
+    margin-bottom: 1rem;
+    border-radius: 7px;
+    border-color: black;
+    background-color: white;
+    outline: none;
+}
+.boton_login {
+    width: 60%;
+    height: 45px;
+    border-radius: 7px;
+    border-color: cadetblue;
+    background-color: white;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.5s ease;
+    position: relative;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    outline: none;
+}
+
+.boton_login:hover {
+    background: cadetblue;
+    color: #fff !important;
+}
+.h1_login {
+    padding-top: 3%;
+    font-size: 35px;
+}
+.flex-cv {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
+}
+.all-view{
+    height: 100vh;
+}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+@media (max-width: 480px) {
+
+    /*ESTILOS DE LOGIN*/
+    .cuadro_login {
+        width: 90%;
+        background: white;
+        border: 5px solid black;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+    }
+    .input_login {
+        width: 80%;
+        height: 45px;
+        margin-bottom: 1rem;
+        border-radius: 7px;
+        border-color: black;
+        background-color: white;
+        outline: none;
+    }
+    .boton_login {
+        width: 83%;
+        height: 45px;
+        border-radius: 7px;
+        border-color: cadetblue;
+        background-color: white;
+        font-size: 18px;
+        font-weight: 500;
+        transition: all 0.5s ease;
+        position: relative;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        outline: none;
+    }
+    /*FIN DE ESTILOS DEL LOGIN*/
+}
+
+@media (max-width: 810px) {
+
+    /*ESTILOS DE LOGIN*/
+
+    .cuadro_login {
+        width: 90%;
+        background: white;
+        border: 5px solid black;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+    }
+    .input_login {
+        width: 80%;
+        height: 45px;
+        margin-bottom: 1rem;
+        border-radius: 7px;
+        border-color: black;
+        background-color: white;
+        outline: none;
+    }
+    .boton_login {
+        width: 83%;
+        height: 45px;
+        border-radius: 7px;
+        border-color: cadetblue;
+        background-color: white;
+        font-size: 18px;
+        font-weight: 500;
+        transition: all 0.5s ease;
+        position: relative;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        outline: none;
+    }
+    /*FIN DE ESTILOS DEL LOGIN*/
 }
